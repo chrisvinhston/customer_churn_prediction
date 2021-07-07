@@ -453,6 +453,34 @@
     </datasource>
   </datasources>
   <worksheets>
+    <worksheet name='Avg Tenure Churn'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='customer_churn_data' name='federated.06kq93f0rtggh116a67cn1binncl' />
+          </datasources>
+          <datasource-dependencies datasource='federated.06kq93f0rtggh116a67cn1binncl'>
+            <column datatype='string' name='[Churn]' role='dimension' type='nominal' />
+            <column-instance column='[tenure]' derivation='Avg' name='[avg:tenure:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Churn]' derivation='None' name='[none:Churn:nk]' pivot='key' type='nominal' />
+            <column caption='Tenure' datatype='integer' name='[tenure]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.06kq93f0rtggh116a67cn1binncl].[avg:tenure:qk]</rows>
+        <cols>[federated.06kq93f0rtggh116a67cn1binncl].[none:Churn:nk]</cols>
+      </table>
+      <simple-id uuid='{0CD1F8F2-8D8D-4C06-AEAE-60DF2D6D8999}' />
+    </worksheet>
     <worksheet name='Churn $ total'>
       <table>
         <view>
@@ -474,10 +502,11 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <reference-line axis-column='[federated.06kq93f0rtggh116a67cn1binncl].[sum:TotalCharges:qk]' enable-instant-analytics='true' formula='average' id='refline0' label-type='automatic' probability='95' scope='per-pane' value-column='[federated.06kq93f0rtggh116a67cn1binncl].[sum:TotalCharges:qk]' z-order='1' />
           </pane>
         </panes>
-        <rows>[federated.06kq93f0rtggh116a67cn1binncl].[none:Churn:nk]</rows>
-        <cols>[federated.06kq93f0rtggh116a67cn1binncl].[sum:TotalCharges:qk]</cols>
+        <rows>[federated.06kq93f0rtggh116a67cn1binncl].[sum:TotalCharges:qk]</rows>
+        <cols>[federated.06kq93f0rtggh116a67cn1binncl].[none:Churn:nk]</cols>
       </table>
       <simple-id uuid='{C0D4A563-5336-43B1-A317-4D5A354A9908}' />
     </worksheet>
@@ -502,12 +531,33 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <reference-line axis-column='[federated.06kq93f0rtggh116a67cn1binncl].[cnt:customerID:qk]' enable-instant-analytics='true' formula='average' id='refline0' label-type='automatic' probability='95' scope='per-pane' value-column='[federated.06kq93f0rtggh116a67cn1binncl].[cnt:customerID:qk]' z-order='1' />
           </pane>
         </panes>
         <rows>[federated.06kq93f0rtggh116a67cn1binncl].[cnt:customerID:qk]</rows>
         <cols>[federated.06kq93f0rtggh116a67cn1binncl].[none:Churn:nk]</cols>
       </table>
       <simple-id uuid='{337C8EBC-008B-4C6A-A6EC-D8B7728E093F}' />
+    </worksheet>
+    <worksheet name='Sheet 4'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{7145CDBE-0E5F-469F-9761-A0DD274D0518}' />
     </worksheet>
   </worksheets>
   <windows source-height='30'>
@@ -534,7 +584,7 @@
       </cards>
       <simple-id uuid='{0EE73C31-4575-4D09-A7CA-019A153815D2}' />
     </window>
-    <window class='worksheet' maximized='true' name='Churn $ total'>
+    <window class='worksheet' name='Churn $ total'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -556,6 +606,52 @@
         </edge>
       </cards>
       <simple-id uuid='{7D4362B6-8565-429D-918E-39AAD82D28A1}' />
+    </window>
+    <window class='worksheet' name='Avg Tenure Churn'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{02E84988-0104-46F2-B830-9B9272CFA9B8}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 4'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{8FCFB42F-0A14-41FD-A83A-F9944CAED68E}' />
     </window>
   </windows>
 </workbook>
